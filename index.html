@@ -61,6 +61,33 @@
       transform: translateY(0);
       transition-delay: 0s;
     }
+    .slide > * {
+      opacity: 0;
+      transform: translateY(28px);
+      filter: blur(5px);
+      transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .85s cubic-bezier(.2,.7,.2,1), filter .7s ease;
+    }
+    .slide.active > * { opacity: 1; transform: translateY(0); filter: blur(0); }
+    .slide.active > :nth-child(1) { transition-delay: .16s; }
+    .slide.active > :nth-child(2) { transition-delay: .30s; }
+    .slide.active > :nth-child(3) { transition-delay: .46s; }
+    .slide.active > :nth-child(4) { transition-delay: .60s; }
+    .concept-section { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .85s cubic-bezier(.2,.7,.2,1); }
+    .slide.active .concept-section { opacity: 1; transform: translateY(0); }
+    .slide.active .concept-section:nth-child(1) { transition-delay: .24s; }
+    .slide.active .concept-section:nth-child(2) { transition-delay: .48s; }
+    .concept-section > * { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .65s cubic-bezier(.2,.7,.2,1); }
+    .slide.active .concept-section > * { opacity: 1; transform: translateY(0); }
+    .slide.active .concept-section > :nth-child(1) { transition-delay: .42s; }
+    .slide.active .concept-section > :nth-child(2) { transition-delay: .52s; }
+    .slide.active .concept-section > :nth-child(3) { transition-delay: .62s; }
+    .slide.active .concept-section > :nth-child(4) { transition-delay: .72s; }
+    .slide.active .concept-section > :nth-child(5) { transition-delay: .84s; }
+    .slide.active .concept-section:nth-child(2) > :nth-child(1) { transition-delay: .66s; }
+    .slide.active .concept-section:nth-child(2) > :nth-child(2) { transition-delay: .76s; }
+    .slide.active .concept-section:nth-child(2) > :nth-child(3) { transition-delay: .86s; }
+    .slide.active .concept-section:nth-child(2) > :nth-child(4) { transition-delay: .96s; }
+    .slide.active .concept-section:nth-child(2) > :nth-child(5) { transition-delay: 1.08s; }
     .kicker {
       margin: 0 0 1.1rem;
       color: var(--cyan);
@@ -100,10 +127,15 @@
       margin-right: auto;
     }
     .accent { color: var(--cyan); }
-    .questions { width: min(1180px, 84vw); display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(38px, 6vw, 100px); }
-    .question { padding: 1.5rem 1rem 2rem; border-top: 2px solid rgba(81,213,210,.72); }
-    .question span { display: block; margin-bottom: 1.4rem; color: var(--cyan); font-size: clamp(12px, 1vw, 17px); font-weight: 700; letter-spacing: .16em; }
-    .question strong { display: block; color: var(--ink); font-size: clamp(36px, 4.1vw, 66px); font-weight: 720; line-height: 1.3; letter-spacing: -.045em; }
+    .concept-sections { width: min(1480px, 90vw); display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(42px, 5vw, 90px); text-align: left; }
+    .concept-section { padding-top: 1rem; border-top: 2px solid rgba(81,213,210,.72); }
+    .concept-section .number { display: block; color: var(--cyan); font-size: clamp(12px, .9vw, 16px); font-weight: 700; letter-spacing: .18em; }
+    .concept-section h3 { margin: .55rem 0 .6rem; font-size: clamp(25px, 2.1vw, 38px); line-height: 1.25; letter-spacing: -.03em; }
+    .concept-section .english { margin: 0 0 .85rem; color: var(--cyan); font-size: clamp(11px, .85vw, 15px); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .concept-section h4 { margin: 0 0 .75rem; font-size: clamp(22px, 1.75vw, 31px); line-height: 1.35; }
+    .concept-section .body { color: var(--muted); font-size: clamp(12px, .88vw, 16px); line-height: 1.58; font-weight: 500; }
+    .concept-section .body p { margin: 0 0 .45rem; }
+    .concept-section .voice { color: var(--ink); font-weight: 700; }
     .courses {
       width: min(1050px, 82vw);
       display: grid;
@@ -171,7 +203,7 @@
     }
     .notes.show { display: block; }
     @media (prefers-reduced-motion: reduce) {
-      .slide { transition: none; }
+      .slide, .slide > *, .concept-section, .concept-section > * { transition: none; }
     }
   </style>
 </head>
@@ -190,11 +222,37 @@
       <p class="lead">当たり前を疑い<br>共感を生み出す</p>
     </section>
 
-    <section class="slide" data-note="デザイン工学部を知る入口は、この2つの問いです。まず、他の学部との違い。そして、どんなスタンスで学ぶのか。">
-      <p class="kicker">2 QUESTIONS</p>
-      <div class="questions">
-        <div class="question"><span>01 / QUESTION</span><strong>他の学部と<br>何が違うの？</strong></div>
-        <div class="question"><span>02 / QUESTION</span><strong>どんなスタンスで<br>学ぶの？</strong></div>
+    <section class="slide" data-note="一つ目は、当たり前を疑い、まだ誰も気づいていない共感される『もっと』を生み出すこと。二つ目は、とにかくやってみて、失敗から学び、社会実装につなげることです。">
+      <div class="concept-sections">
+        <article class="concept-section">
+          <span class="number">01 / QUESTION</span>
+          <h3>他の学部と何が違うの？</h3>
+          <p class="english">Question Norms, Create Empathy</p>
+          <h4>当たり前を疑い<br>共感を生み出す</h4>
+          <div class="body">
+            <p>今のわたしたちから見たら「100年前の世界」はとても不便です。では、100年前の人たちは「なんて不便だ！」と思いながら生きていたのでしょうか？きっとそうではないでしょう。</p>
+            <p>世の中が進化する時、必ずしも問題や課題が存在するとは限りません。</p>
+            <p class="voice">「こうしたらもっと面白いかも」<br>「こうしたらもっと魅力的かも」</p>
+            <p>このような「もっと」が世の中を大きく変える原動力になることも少なくありません。デザイン工学部では、この「もっと」に着目し、当たり前を疑い、まだ誰も気がついていないような、共感される「もっと」を生み出す、を実践します。</p>
+            <p>中でも「当たり前を疑う」「共感を生み出す」という姿勢はデザイン工学部の特徴とも言える部分です。「なぜそれが必要か？」「本当にそれは必要か？」「共感してもらえるのか？」といった「なぜ」を常に問います。</p>
+          </div>
+        </article>
+        <article class="concept-section">
+          <span class="number">02 / QUESTION</span>
+          <h3>どんなスタンスで学ぶの？</h3>
+          <p class="english">No Try, No Design</p>
+          <h4>とにかくやってみる<br>失敗は恐れない</h4>
+          <div class="body">
+            <p>わたしたちが念頭にしているのは社会実装です。</p>
+            <p class="voice">絵に描いた餅はいりません。</p>
+            <p>「当たり前が違っていた」ことに気がつくのも、「予想と実際が違う」ことに気がつくのも、すべては「やってみて」はじめて気がつくことができます。</p>
+            <p>だからこそ、デザイン工学部では「とにかくやってみる」ことを重視します。</p>
+            <p>そして、失敗することを前提に物事を進めます。</p>
+            <p>失敗から学び、次なる着想を得る。</p>
+            <p>この繰り返しの中で社会実装へとつなげていく。</p>
+            <p>これがデザイン工学部の基本的なスタンスです。</p>
+          </div>
+        </article>
       </div>
     </section>
 
