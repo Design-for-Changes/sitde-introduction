@@ -57,6 +57,59 @@
       transform: translateY(0);
       transition-delay: 0s;
     }
+    .slide > * { position: relative; z-index: 1; }
+    .opening::before,
+    .opening::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .opening::before {
+      background:
+        linear-gradient(90deg, transparent calc(25% - .5px), rgba(255,255,255,.12) 25%, transparent calc(25% + .5px)),
+        linear-gradient(90deg, transparent calc(50% - .5px), rgba(255,255,255,.12) 50%, transparent calc(50% + .5px)),
+        linear-gradient(90deg, transparent calc(75% - .5px), rgba(255,255,255,.12) 75%, transparent calc(75% + .5px)),
+        linear-gradient(0deg, transparent calc(33.333% - .5px), rgba(255,255,255,.09) 33.333%, transparent calc(33.333% + .5px)),
+        linear-gradient(0deg, transparent calc(66.666% - .5px), rgba(255,255,255,.09) 66.666%, transparent calc(66.666% + .5px));
+    }
+    .opening::after {
+      opacity: .58;
+      background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.018) 3px 4px);
+      box-shadow: inset 0 0 180px rgba(0,0,0,.75);
+    }
+    .opening-brand {
+      margin: 0 0 clamp(52px, 8vh, 92px);
+      color: rgba(241,243,241,.66);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: clamp(10px, .8vw, 14px);
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    .opening-title {
+      max-width: none;
+      margin: 0;
+      color: rgba(238,241,238,.76);
+      font-size: clamp(58px, 9.4vw, 152px);
+      font-weight: 760;
+      line-height: .89;
+      letter-spacing: -.082em;
+    }
+    .opening-title span { display: block; white-space: nowrap; }
+    .opening-title span:last-child { margin-left: 9vw; }
+    .opening-meta {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: clamp(48px, 8vh, 94px) 0 0;
+      color: rgba(241,243,241,.68);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: clamp(9px, .72vw, 12px);
+      font-weight: 700;
+      letter-spacing: .16em;
+    }
+    .opening-meta::before { content: ""; width: clamp(42px, 7vw, 110px); height: 1px; background: var(--cyan); }
     .kicker {
       margin: 0 0 1.1rem;
       color: var(--cyan);
@@ -157,6 +210,15 @@
       .course { padding-top: .55rem; }
       .course span { margin-top: .2rem; }
       #player { transform: scale(1.8); }
+      .opening-title { font-size: clamp(52px, 15vw, 84px); line-height: .95; }
+      .opening-title span { white-space: normal; }
+      .opening-title span:last-child { margin-left: 0; }
+      .opening::before {
+        background:
+          linear-gradient(90deg, transparent calc(50% - .5px), rgba(255,255,255,.12) 50%, transparent calc(50% + .5px)),
+          linear-gradient(0deg, transparent calc(33.333% - .5px), rgba(255,255,255,.09) 33.333%, transparent calc(33.333% + .5px)),
+          linear-gradient(0deg, transparent calc(66.666% - .5px), rgba(255,255,255,.09) 66.666%, transparent calc(66.666% + .5px));
+      }
     }
     @media (prefers-reduced-motion: reduce) {
       .slide { transition: none; }
@@ -170,10 +232,10 @@
   </div>
 
   <main aria-live="polite">
-    <section class="slide active" data-note="今日は、デザイン工学部が何を学ぶ場所なのかを、5分で紹介します。背景は、実際に学ぶ1年生から4年生の姿です。">
-      <p class="kicker">芝浦工業大学</p>
-      <h1>デザイン工学部</h1>
-      <p class="lead">考える。つくる。人と社会につなげる。</p>
+    <section class="slide opening active" data-note="今日は、デザイン工学部が何を学ぶ場所なのかを、5分で紹介します。背景は、実際に学ぶ1年生から4年生の姿です。">
+      <p class="opening-brand">芝浦工業大学 ｜ デザイン工学部</p>
+      <h1 class="opening-title"><span>当たり前を疑い</span><span>共感を生み出す</span></h1>
+      <p class="opening-meta">DESIGN ENGINEERING / 05 MINUTES</p>
     </section>
 
     <section class="slide" data-note="デザイン工学は、工学と芸術の中間というだけではありません。技術を持つ人と、それを使う人のあいだに立ち、よりよい関係をつくる学問です。">
