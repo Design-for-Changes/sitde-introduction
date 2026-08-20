@@ -553,14 +553,16 @@
         updateSlide(target);
         return;
       }
-      const pair = [slides[5], slides[6]];
       const names = ['course-axis-shared', 'course-system-shared', 'course-ux-shared', 'course-product-shared'];
-      pair.forEach(slide => {
-        const elements = [slide.querySelector('.course-axis'), ...slide.querySelectorAll('.course strong')];
-        elements.forEach((element, i) => { if (element) element.style.viewTransitionName = names[i]; });
+      const currentElements = [slides[index].querySelector('.course-axis'), ...slides[index].querySelectorAll('.course strong')];
+      const targetElements = [slides[target].querySelector('.course-axis'), ...slides[target].querySelectorAll('.course strong')];
+      currentElements.forEach((element, i) => { if (element) element.style.viewTransitionName = names[i]; });
+      const transition = document.startViewTransition(() => {
+        currentElements.forEach(element => { if (element) element.style.viewTransitionName = ''; });
+        targetElements.forEach((element, i) => { if (element) element.style.viewTransitionName = names[i]; });
+        updateSlide(target);
       });
-      const transition = document.startViewTransition(() => updateSlide(target));
-      transition.finished.finally(() => pair.forEach(slide => [slide.querySelector('.course-axis'), ...slide.querySelectorAll('.course strong')].forEach(element => { if (element) element.style.viewTransitionName = ''; })));
+      transition.finished.finally(() => targetElements.forEach(element => { if (element) element.style.viewTransitionName = ''; }));
     }
     function startTimer() {
       if (startedAt) return;
