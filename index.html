@@ -166,7 +166,7 @@
     .demand-conclusion { width: 88vw; margin-top: clamp(28px, 3.5vh, 52px); padding-top: clamp(20px, 2.3vh, 34px); border-top: 1px solid rgba(81,213,210,.5); color: var(--ink); font-size: clamp(30px, 3vw, 54px); font-weight: 740; letter-spacing: -.035em; text-align: center; }
     .demand-conclusion span { color: var(--cyan); }
     .courses {
-      width: min(1050px, 82vw);
+      width: 88vw;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: clamp(14px, 2.2vw, 38px);
@@ -174,12 +174,14 @@
       margin-left: auto;
       margin-right: auto;
     }
-    .course { padding-top: 1.15rem; border-top: 3px solid currentColor; }
-    .course:nth-child(1) { color: var(--cyan); }
-    .course:nth-child(2) { color: #8ddfde; }
-    .course:nth-child(3) { color: var(--pink); }
-    .course strong { display: block; font-size: clamp(21px, 2.35vw, 38px); line-height: 1.35; }
-    .course span { display: block; margin-top: .65rem; color: var(--ink); font-size: clamp(14px, 1.35vw, 22px); line-height: 1.6; }
+    .course { padding-top: clamp(24px, 2.5vw, 44px); border-top: 2px solid rgba(81,213,210,.7); color: var(--cyan); text-align: center; }
+    .course strong { display: block; font-size: clamp(30px, 3vw, 54px); line-height: 1.2; }
+    .course span { display: block; margin-top: 1rem; color: var(--muted); font-size: clamp(17px, 1.45vw, 26px); line-height: 1.55; }
+    .course { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .75s cubic-bezier(.2,.7,.2,1); }
+    .slide.active .course { opacity: 1; transform: translateY(0); }
+    .slide.active .course:nth-child(1) { transition-delay: .48s; }
+    .slide.active .course:nth-child(2) { transition-delay: .66s; }
+    .slide.active .course:nth-child(3) { transition-delay: .84s; }
     .keywords { display: flex; justify-content: center; flex-wrap: wrap; gap: .8rem 1.2rem; margin-top: 1rem; }
     .keywords span {
       border-left: 3px solid var(--cyan);
@@ -322,9 +324,14 @@
       <div class="demand-conclusion">だから、どっちもやる<span>デザイン工学</span>のニーズがある。</div>
     </section>
 
-    <section class="slide" data-note="ここでは、一人で正解を出すことより、違う専門や文化を持つ人と一緒につくることを重視します。学年やコースを越え、企業や地域、海外とも協働します。">
-      <p class="kicker">01 / 協創</p>
-      <div class="statement">ひとりの正解より、<span class="accent">みんなで前へ。</span><small>専門・学年・文化を越えて、異なる視点を組み合わせます。</small></div>
+    <section class="slide" data-note="デザイン工学部には、システムデザイン、UXデザイン、プロダクトデザインの3つのコースがあります。対象は異なりますが、アイデアを社会で実現するという目的は共通です。">
+      <p class="kicker">3 COURSES</p>
+      <h2>3つのコース</h2>
+      <div class="courses">
+        <div class="course"><strong>システム<br>デザイン</strong><span>技術と仕組みで、<br>社会を動かす</span></div>
+        <div class="course"><strong>UX<br>デザイン</strong><span>人の体験と関係を、<br>よりよくする</span></div>
+        <div class="course"><strong>プロダクト<br>デザイン</strong><span>暮らしを支える、<br>ものをつくる</span></div>
+      </div>
     </section>
 
     <section class="slide" data-note="デザインは、頭の中だけでは進みません。まず手を動かし、試し、失敗から学びます。失敗は終わりではなく、次の問いを見つける材料です。">
