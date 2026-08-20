@@ -40,6 +40,7 @@
         linear-gradient(90deg, rgba(3, 11, 13, .90) 0%, rgba(3, 11, 13, .65) 48%, rgba(3, 11, 13, .30) 100%),
         linear-gradient(0deg, rgba(3, 11, 13, .50), transparent 42%);
     }
+    #simulator { position: fixed; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; opacity: .72; mix-blend-mode: screen; }
     main { position: relative; width: 100%; height: 100%; z-index: 2; }
     .slide {
       position: absolute; inset: 0;
@@ -57,59 +58,6 @@
       transform: translateY(0);
       transition-delay: 0s;
     }
-    .slide > * { position: relative; z-index: 1; }
-    .opening::before,
-    .opening::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-    .opening::before {
-      background:
-        linear-gradient(90deg, transparent calc(25% - .5px), rgba(255,255,255,.12) 25%, transparent calc(25% + .5px)),
-        linear-gradient(90deg, transparent calc(50% - .5px), rgba(255,255,255,.12) 50%, transparent calc(50% + .5px)),
-        linear-gradient(90deg, transparent calc(75% - .5px), rgba(255,255,255,.12) 75%, transparent calc(75% + .5px)),
-        linear-gradient(0deg, transparent calc(33.333% - .5px), rgba(255,255,255,.09) 33.333%, transparent calc(33.333% + .5px)),
-        linear-gradient(0deg, transparent calc(66.666% - .5px), rgba(255,255,255,.09) 66.666%, transparent calc(66.666% + .5px));
-    }
-    .opening::after {
-      opacity: .58;
-      background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.018) 3px 4px);
-      box-shadow: inset 0 0 180px rgba(0,0,0,.75);
-    }
-    .opening-brand {
-      margin: 0 0 clamp(52px, 8vh, 92px);
-      color: rgba(241,243,241,.66);
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: clamp(10px, .8vw, 14px);
-      font-weight: 700;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-    }
-    .opening-title {
-      max-width: none;
-      margin: 0;
-      color: rgba(238,241,238,.76);
-      font-size: clamp(58px, 9.4vw, 152px);
-      font-weight: 760;
-      line-height: .89;
-      letter-spacing: -.082em;
-    }
-    .opening-title span { display: block; white-space: nowrap; }
-    .opening-title span:last-child { margin-left: 9vw; }
-    .opening-meta {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      margin: clamp(48px, 8vh, 94px) 0 0;
-      color: rgba(241,243,241,.68);
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: clamp(9px, .72vw, 12px);
-      font-weight: 700;
-      letter-spacing: .16em;
-    }
-    .opening-meta::before { content: ""; width: clamp(42px, 7vw, 110px); height: 1px; background: var(--cyan); }
     .kicker {
       margin: 0 0 1.1rem;
       color: var(--cyan);
@@ -205,21 +153,6 @@
       display: none;
     }
     .notes.show { display: block; }
-    @media (max-width: 760px) {
-      .courses { grid-template-columns: 1fr; gap: 15px; width: 100%; }
-      .course { padding-top: .55rem; }
-      .course span { margin-top: .2rem; }
-      #player { transform: scale(1.8); }
-      .opening-title { font-size: clamp(52px, 15vw, 84px); line-height: .95; }
-      .opening-title span { white-space: normal; }
-      .opening-title span:last-child { margin-left: 0; }
-      .opening::before {
-        background:
-          linear-gradient(90deg, transparent calc(50% - .5px), rgba(255,255,255,.12) 50%, transparent calc(50% + .5px)),
-          linear-gradient(0deg, transparent calc(33.333% - .5px), rgba(255,255,255,.09) 33.333%, transparent calc(33.333% + .5px)),
-          linear-gradient(0deg, transparent calc(66.666% - .5px), rgba(255,255,255,.09) 66.666%, transparent calc(66.666% + .5px));
-      }
-    }
     @media (prefers-reduced-motion: reduce) {
       .slide { transition: none; }
     }
@@ -230,12 +163,13 @@
     <img class="fallback" src="https://i.ytimg.com/vi/afj9RYxu-po/maxresdefault.jpg" alt="">
     <iframe id="player" src="https://www.youtube-nocookie.com/embed/afj9RYxu-po?autoplay=1&mute=1&controls=0&loop=1&playlist=afj9RYxu-po&playsinline=1&rel=0&modestbranding=1&disablekb=1" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="芝浦工業大学デザイン工学部 在学生の様子"></iframe>
   </div>
+  <canvas id="simulator" aria-hidden="true"></canvas>
 
   <main aria-live="polite">
-    <section class="slide opening active" data-note="今日は、デザイン工学部が何を学ぶ場所なのかを、5分で紹介します。背景は、実際に学ぶ1年生から4年生の姿です。">
-      <p class="opening-brand">芝浦工業大学 ｜ デザイン工学部</p>
-      <h1 class="opening-title"><span>当たり前を疑い</span><span>共感を生み出す</span></h1>
-      <p class="opening-meta">DESIGN ENGINEERING / 05 MINUTES</p>
+    <section class="slide active" data-note="今日は、デザイン工学部が何を学ぶ場所なのかを、5分で紹介します。背景は、実際に学ぶ1年生から4年生の姿です。">
+      <p class="kicker">芝浦工業大学</p>
+      <h1>デザイン工学部</h1>
+      <p class="lead">当たり前を疑い<br>共感を生み出す</p>
     </section>
 
     <section class="slide" data-note="デザイン工学は、工学と芸術の中間というだけではありません。技術を持つ人と、それを使う人のあいだに立ち、よりよい関係をつくる学問です。">
@@ -293,6 +227,49 @@
   </div>
 
   <script>
+    const simulator = document.querySelector('#simulator');
+    const sim = simulator.getContext('2d');
+    const pointer = { x: 0, y: 0 };
+    let simWidth = 0, simHeight = 0;
+    const controls = Array.from({ length: 6 }, (_, i) => ({ frequency: i + 2, amplitude: .035 + Math.random() * .05, phase: Math.random() * Math.PI * 2, speed: .28 + Math.random() * .55 }));
+    const particles = Array.from({ length: 72 }, (_, i) => ({ angle: i * 2.39996, radius: 1.1 + ((i * 37) % 31) / 30, lift: (((i * 19) % 43) / 43 - .5) * 1.5, speed: .22 + ((i * 13) % 17) / 34, size: .5 + ((i * 7) % 9) / 9 }));
+    function resizeSimulator() { const dpr = Math.min(devicePixelRatio || 1, 1.5); simWidth = innerWidth; simHeight = innerHeight; simulator.width = Math.floor(simWidth * dpr); simulator.height = Math.floor(simHeight * dpr); sim.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    function drawSimulator(ms = 0) {
+      sim.clearRect(0, 0, simWidth, simHeight);
+      const t = ms * .00013, ry = -.4 + t * .38 + pointer.x * .45, rx = .72 + pointer.y * .24;
+      const cosY = Math.cos(ry), sinY = Math.sin(ry), cosX = Math.cos(rx), sinX = Math.sin(rx), scale = Math.max(simWidth, simHeight) * 1.32, cx = simWidth * .66, cy = simHeight * .52;
+      const project = (px, py, pz) => { const x1 = px * cosY - pz * sinY, z1 = px * sinY + pz * cosY, y1 = py * cosX - z1 * sinX, z2 = py * sinX + z1 * cosX, perspective = 1 / (2.85 - z2 * .46); return { x: cx + x1 * scale * perspective, y: cy + y1 * scale * perspective, z: z2 }; };
+      const halo = sim.createRadialGradient(cx, cy, 0, cx, cy, scale * .55); halo.addColorStop(0, 'rgba(81,213,210,.08)'); halo.addColorStop(.6, 'rgba(230,240,236,.025)'); halo.addColorStop(1, 'rgba(0,0,0,0)'); sim.fillStyle = halo; sim.fillRect(0, 0, simWidth, simHeight);
+      particles.forEach((p, i) => { const a = p.angle + t * p.speed, q = project(Math.cos(a) * p.radius, p.lift + Math.sin(a * 1.7 + i) * .12, Math.sin(a) * p.radius), alpha = Math.max(.08, Math.min(.48, q.z * .12 + .25)); sim.fillStyle = i % 17 === 0 ? `rgba(81,213,210,${alpha})` : `rgba(235,241,238,${alpha})`; sim.beginPath(); sim.arc(q.x, q.y, p.size, 0, Math.PI * 2); sim.fill(); });
+      const rings = 16, slices = 32, points = [];
+      for (let r = 0; r <= rings; r++) { const radial = r / rings, row = []; for (let s = 0; s < slices; s++) { const theta = s / slices * Math.PI * 2, edgeNoise = controls.reduce((sum, c) => sum + Math.sin(theta * c.frequency + c.phase + t * c.speed) * c.amplitude, 0), liftNoise = controls.reduce((sum, c) => sum + Math.cos(theta * (c.frequency - .7) + radial * c.frequency * 1.4 + c.phase - t * c.speed) * c.amplitude, 0), edge = radial * (.94 + edgeNoise * 1.14 + .045 * Math.cos(theta * 3 - t)); row.push(project(Math.cos(theta) * edge * 1.26 + liftNoise * .16 * radial, Math.sin(theta) * edge * .92 + edgeNoise * .12 * radial, .24 * (1 - radial) + liftNoise * (1 + radial * .7) + .18 * Math.cos(radial * 7 - t * 1.35))); } points.push(row); }
+      for (let r = 0; r < rings; r++) for (let s = 0; s < slices; s++) { const a = points[r][s], b = points[r][(s + 1) % slices], d = points[r + 1][s]; [[a,b],[a,d]].forEach(([p1,p2]) => { const depth = Math.max(.12, Math.min(1, (p1.z + p2.z) * .24 + .5)); sim.strokeStyle = `rgba(220,239,235,${depth * .38})`; sim.lineWidth = depth > .58 ? .72 : .4; sim.beginPath(); sim.moveTo(p1.x, p1.y); sim.lineTo(p2.x, p2.y); sim.stroke(); }); }
+      requestAnimationFrame(drawSimulator);
+    }
+    function drawImpactSimulator(ms = 0) {
+      sim.clearRect(0, 0, simWidth, simHeight);
+      const cycle = (ms % 6400) / 6400, impactAt = .44, after = Math.max(0, (cycle - impactAt) / (1 - impactAt));
+      const hitX = simWidth * .69, hitY = simHeight * .49, ease = v => 1 - Math.pow(1 - v, 3);
+      let ballX, ballY;
+      if (cycle < impactAt) { const q = ease(cycle / impactAt); ballX = simWidth * 1.06 + (hitX - simWidth * 1.06) * q; ballY = simHeight * .16 + (hitY - simHeight * .16) * q; }
+      else { const q = after; ballX = hitX + simWidth * .37 * ease(q); ballY = hitY - simHeight * .25 * Math.sin(q * Math.PI) + simHeight * .18 * q; }
+      const cols = 48, rows = 30, left = simWidth * .46, top = simHeight * .14, meshW = simWidth * .48, meshH = simHeight * .72, points = [];
+      for (let y = 0; y <= rows; y++) { const row = []; for (let x = 0; x <= cols; x++) {
+        const u = x / cols, v = y / rows, baseX = left + u * meshW + (v - .5) * 34, baseY = top + v * meshH + Math.sin(u * Math.PI) * 10;
+        const dx = baseX - hitX, dy = baseY - hitY, distance = Math.hypot(dx, dy), contact = cycle < impactAt ? Math.max(0, (cycle / impactAt - .78) / .22) : Math.exp(-after * 3.2), dent = Math.exp(-Math.pow(distance / (simWidth * .115), 2)) * contact, waveFront = after * simWidth * .48;
+        const ripple = cycle >= impactAt ? Math.sin((distance - waveFront) * .065) * Math.exp(-Math.abs(distance - waveFront) / 90) * Math.exp(-after * 1.8) : 0, displacement = dent * 78 + ripple * 22;
+        row.push({ x: baseX - displacement, y: baseY + (dy / Math.max(distance, 1)) * displacement * .16, energy: Math.min(1, dent + Math.abs(ripple) * .75) });
+      } points.push(row); }
+      const stroke = (a, b) => { const energy = Math.max(a.energy, b.energy); sim.strokeStyle = energy > .15 ? `rgba(81,213,210,${.22 + energy * .42})` : 'rgba(225,239,235,.17)'; sim.lineWidth = energy > .4 ? .85 : .42; sim.beginPath(); sim.moveTo(a.x, a.y); sim.lineTo(b.x, b.y); sim.stroke(); };
+      for (let y = 0; y <= rows; y++) for (let x = 0; x <= cols; x++) { if (x < cols) stroke(points[y][x], points[y][x + 1]); if (y < rows) stroke(points[y][x], points[y + 1][x]); }
+      const glow = sim.createRadialGradient(ballX, ballY, 0, ballX, ballY, 42); glow.addColorStop(0, 'rgba(238,248,245,.9)'); glow.addColorStop(.25, 'rgba(81,213,210,.55)'); glow.addColorStop(1, 'rgba(81,213,210,0)'); sim.fillStyle = glow; sim.beginPath(); sim.arc(ballX, ballY, 42, 0, Math.PI * 2); sim.fill();
+      sim.fillStyle = 'rgba(245,248,246,.9)'; sim.beginPath(); sim.arc(ballX, ballY, 10, 0, Math.PI * 2); sim.fill();
+      requestAnimationFrame(drawImpactSimulator);
+    }
+    addEventListener('resize', resizeSimulator);
+    addEventListener('pointermove', e => { pointer.x = e.clientX / simWidth - .5; pointer.y = e.clientY / simHeight - .5; }, { passive: true });
+    resizeSimulator(); requestAnimationFrame(drawImpactSimulator);
+
     const slides = [...document.querySelectorAll('.slide')];
     const count = document.querySelector('.count');
     const bar = document.querySelector('.progress i');
