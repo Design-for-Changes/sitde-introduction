@@ -121,17 +121,17 @@
     .accent { color: var(--cyan); }
     .concept-sections { width: min(1480px, 90vw); display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(42px, 5vw, 90px); text-align: left; }
     .concept-sections.single { width: 88vw; grid-template-columns: 1fr; }
-    .concept-section { padding-top: 0; border-top: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0; align-items: center; }
+    .concept-section { padding-top: 0; border-top: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0; align-items: stretch; }
     .concept-section .number { display: block; color: var(--cyan); font-size: clamp(12px, .9vw, 16px); font-weight: 700; letter-spacing: .18em; }
-    .question-block { padding: 2rem clamp(40px, 4vw, 82px) 2rem 0; border-right: 2px solid rgba(81,213,210,.82); }
-    .answer-block { margin-top: 0; padding-left: clamp(40px, 4vw, 82px); border-left: 0; display: block; }
+    .question-block { padding: 2rem clamp(40px, 4vw, 82px) 2rem 0; border-right: 2px solid rgba(81,213,210,.82); display: flex; flex-direction: column; justify-content: center; }
+    .answer-block { min-width: 0; margin-top: 0; padding-left: clamp(40px, 4vw, 82px); border-left: 0; display: flex; flex-direction: column; justify-content: center; }
     .concept-section h3 { margin: .65rem 0 0; color: var(--muted); font-size: clamp(28px, 2.5vw, 48px); line-height: 1.25; letter-spacing: -.025em; font-weight: 650; }
     .concept-section .english { margin: .15rem 0 1.25rem; color: var(--cyan); font-size: clamp(13px, 1vw, 18px); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-    .concept-section h4 { margin: 0 0 1.1rem; color: var(--ink); font-size: clamp(52px, 5.2vw, 96px); line-height: 1.02; letter-spacing: -.05em; font-weight: 760; }
-    .concept-section .body { color: var(--muted); font-size: clamp(18px, 1.25vw, 24px); line-height: 1.62; font-weight: 500; }
+    .concept-section h4 { margin: 0 0 1rem; color: var(--ink); font-size: clamp(44px, 4.15vw, 78px); line-height: 1.04; letter-spacing: -.05em; font-weight: 760; }
+    .concept-section .body { color: var(--muted); font-size: clamp(17px, 1.1vw, 21px); line-height: 1.55; font-weight: 500; }
     .concept-section .body p { margin: 0 0 .45rem; }
     .concept-section .answer-block > .body { padding-top: .2rem; }
-    .concept-section .focus-copy { font-size: clamp(22px, 1.7vw, 32px); line-height: 1.65; }
+    .concept-section .focus-copy { font-size: clamp(20px, 1.45vw, 27px); line-height: 1.6; }
     .concept-section .voice { color: var(--ink); font-weight: 700; }
     .courses {
       width: min(1050px, 82vw);
