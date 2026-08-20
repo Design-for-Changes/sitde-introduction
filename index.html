@@ -226,7 +226,10 @@
     .summary-block small { color: var(--muted); font-size: clamp(14px, 1.05vw, 19px); font-weight: 600; }
     .graduate-slide h2 { margin-bottom: clamp(16px, 2vh, 28px); font-size: clamp(48px, 5vw, 80px); }
     .graduate-note { margin: 0 auto clamp(18px, 2.2vh, 32px); color: var(--muted); font-size: clamp(18px, 1.55vw, 28px); font-weight: 600; line-height: 1.6; }
-    .graduate-map { display: block; width: min(88vw, 1500px); max-height: 50vh; margin: 0 auto; object-fit: contain; }
+    .graduate-content { width: 90vw; margin: 0 auto; display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: clamp(28px, 3.5vw, 64px); }
+    .graduate-goal { margin: 0; color: var(--ink); font-size: clamp(25px, 2.35vw, 42px); font-weight: 730; line-height: 1.55; text-align: left; }
+    .graduate-goal strong { display: block; margin-top: .55em; color: var(--cyan); font-size: 1.12em; }
+    .graduate-map { display: block; width: 100%; max-height: 47vh; object-fit: contain; }
     ::view-transition-group(course-axis-shared),
     ::view-transition-group(course-system-shared),
     ::view-transition-group(course-ux-shared),
@@ -449,13 +452,16 @@
       <p class="kicker">AFTER GRADUATION</p>
       <h2>どんな人になるの？</h2>
       <p class="graduate-note">AI時代になって、職種が大きく変化しています。<br>なので、職種を明確に指定するのが難しいです。</p>
-      <img class="graduate-map" src="https://renew-sit-eng-design.jp/site-assets/bc43253874162506cf88.svg" alt="卒業後に目指す人物像">
+      <div class="graduate-content">
+        <p class="graduate-goal">いかなる分野であれ<br>学ぶことを厭わず<br>アイデアを出し<strong>実装に向けて縦横無尽に動ける<br>オールラウンダー人材</strong></p>
+        <img class="graduate-map" src="https://renew-sit-eng-design.jp/site-assets/bc43253874162506cf88.svg" alt="卒業後に目指す人物像">
+      </div>
     </section>
 
-    <section class="slide" data-note="デザイン工学部は、当たり前を疑い、共感を生み出し、未来を形にする場所です。ここで、自分なりの問いを見つけてください。">
-      <p class="kicker">DESIGN THE NEXT</p>
-      <h2>当たり前を疑い、<br><span class="accent">共感を生み出す。</span></h2>
-      <p class="lead">あなたは、どんな未来をつくりますか。</p>
+    <section class="slide" data-note="ご清聴ありがとうございました。">
+      <p class="kicker">芝浦工業大学</p>
+      <h1>デザイン工学部</h1>
+      <p class="lead">当たり前を疑い<br>共感を生み出す</p>
     </section>
   </main>
 
