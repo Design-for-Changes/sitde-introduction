@@ -188,10 +188,12 @@
     .course-axis { position: relative; width: 88vw; margin-top: clamp(40px, 5vh, 74px); display: flex; justify-content: space-between; color: var(--ink); font-size: clamp(20px, 1.8vw, 32px); font-weight: 700; }
     .course-axis::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: linear-gradient(90deg, #3F958B, #657CB8 50%, #B56171); transform: translateY(-50%); }
     .course-axis span { position: relative; z-index: 1; padding: .2em .7em; background: rgba(3,11,13,.9); }
-    .course-slide h2 { margin-bottom: clamp(26px, 3.5vh, 48px); font-size: clamp(48px, 5.2vw, 82px); }
+    .course-slide { align-content: start; padding-top: clamp(54px, 8vh, 96px); }
+    .course-slide h2 { margin-bottom: clamp(14px, 1.8vh, 26px); font-size: clamp(48px, 5.2vw, 82px); }
     .course-slide .courses { margin-top: 0; }
-    .course-slide .course strong { font-size: clamp(38px, 3.8vw, 68px); }
-    .course-slide .course-axis { margin-top: clamp(16px, 2vh, 28px); font-size: clamp(17px, 1.45vw, 25px); }
+    .course-slide .course { display: flex; justify-content: center; padding-top: clamp(10px, 1.2vh, 18px); }
+    .course-slide .course strong { height: clamp(180px, 25vh, 300px); writing-mode: vertical-rl; text-orientation: upright; font-size: clamp(38px, 3.8vw, 68px); line-height: 1; letter-spacing: .08em; }
+    .course-slide .course-axis { margin-top: clamp(10px, 1.3vh, 18px); font-size: clamp(17px, 1.45vw, 25px); }
     .course-slide .course-axis span { padding: .15em .55em; }
     .keywords { display: flex; justify-content: center; flex-wrap: wrap; gap: .8rem 1.2rem; margin-top: 1rem; }
     .keywords span {
@@ -339,9 +341,9 @@
       <p class="kicker">3 COURSES</p>
       <h2>3つのコース</h2>
       <div class="courses">
-        <div class="course"><strong>システム<br>デザイン</strong></div>
-        <div class="course"><strong>UX<br>デザイン</strong></div>
-        <div class="course"><strong>プロダクト<br>デザイン</strong></div>
+        <div class="course"><strong>システム</strong></div>
+        <div class="course"><strong>UX</strong></div>
+        <div class="course"><strong>プロダクト</strong></div>
       </div>
       <div class="course-axis" aria-label="仕組みから製品への横軸"><span>仕組み</span><span>製品</span></div>
     </section>
