@@ -37,15 +37,22 @@
     .video-shell::after {
       content: "";
       background:
-        linear-gradient(90deg, rgba(3, 11, 13, .90) 0%, rgba(3, 11, 13, .65) 48%, rgba(3, 11, 13, .30) 100%),
+        radial-gradient(circle at 50% 50%, rgba(3, 11, 13, .42), rgba(3, 11, 13, .78) 75%),
         linear-gradient(0deg, rgba(3, 11, 13, .50), transparent 42%);
     }
-    #simulator { position: fixed; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; opacity: .72; mix-blend-mode: screen; }
+    #simulator { display: none; }
+    .flip-grid { position: fixed; inset: 0; z-index: 1; display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(8, 1fr); perspective: 1200px; pointer-events: none; }
+    .flip-cell { position: relative; border-right: 1px solid rgba(231,241,238,.10); border-bottom: 1px solid rgba(231,241,238,.10); transform-style: preserve-3d; }
+    .flip-cell::before { content: ""; position: absolute; inset: 0; background: rgba(6,22,24,.76); box-shadow: inset 0 0 0 1px rgba(81,213,210,.10); opacity: 0; transform-origin: 50% 0; backface-visibility: hidden; }
+    .flip-grid.flipping .flip-cell::before { animation: cellFlip .82s cubic-bezier(.3,.05,.18,1) both; animation-delay: var(--delay); }
+    @keyframes cellFlip { 0% { opacity: 0; transform: rotateX(0deg); } 12% { opacity: 1; } 48% { opacity: 1; transform: rotateX(-90deg); } 52% { transform: rotateX(90deg); } 88% { opacity: 1; } 100% { opacity: 0; transform: rotateX(0deg); } }
     main { position: relative; width: 100%; height: 100%; z-index: 2; }
     .slide {
       position: absolute; inset: 0;
       display: grid;
       align-content: center;
+      justify-content: center;
+      text-align: center;
       padding: clamp(42px, 7vw, 118px);
       opacity: 0;
       visibility: hidden;
@@ -58,6 +65,8 @@
       transform: translateY(0);
       transition-delay: 0s;
     }
+    .slide.active h1, .slide.active h2, .slide.active .statement { animation: titleFlip .88s cubic-bezier(.3,.05,.18,1) both; transform-origin: 50% 50%; }
+    @keyframes titleFlip { 0%, 38% { opacity: 0; transform: perspective(900px) rotateX(78deg) translateY(14px); } 100% { opacity: 1; transform: perspective(900px) rotateX(0) translateY(0); } }
     .kicker {
       margin: 0 0 1.1rem;
       color: var(--cyan);
@@ -67,7 +76,9 @@
     }
     h1, h2, p { margin-top: 0; }
     h1 {
-      max-width: 11ch;
+      max-width: 12ch;
+      margin-left: auto;
+      margin-right: auto;
       margin-bottom: 1.6rem;
       font-size: clamp(52px, 8.8vw, 142px);
       font-weight: 760;
@@ -75,7 +86,9 @@
       letter-spacing: -.05em;
     }
     h2 {
-      max-width: 14ch;
+      max-width: 18ch;
+      margin-left: auto;
+      margin-right: auto;
       margin-bottom: 1.7rem;
       font-size: clamp(42px, 6.3vw, 102px);
       font-weight: 720;
@@ -89,6 +102,8 @@
       font-size: clamp(18px, 2vw, 32px);
       line-height: 1.75;
       font-weight: 500;
+      margin-left: auto;
+      margin-right: auto;
     }
     .accent { color: var(--cyan); }
     .courses {
@@ -97,6 +112,8 @@
       grid-template-columns: repeat(3, 1fr);
       gap: clamp(14px, 2.2vw, 38px);
       margin-top: 1.3rem;
+      margin-left: auto;
+      margin-right: auto;
     }
     .course { padding-top: 1.15rem; border-top: 3px solid currentColor; }
     .course:nth-child(1) { color: var(--cyan); }
@@ -104,7 +121,7 @@
     .course:nth-child(3) { color: var(--pink); }
     .course strong { display: block; font-size: clamp(21px, 2.35vw, 38px); line-height: 1.35; }
     .course span { display: block; margin-top: .65rem; color: var(--ink); font-size: clamp(14px, 1.35vw, 22px); line-height: 1.6; }
-    .keywords { display: flex; flex-wrap: wrap; gap: .8rem 1.2rem; margin-top: 1rem; }
+    .keywords { display: flex; justify-content: center; flex-wrap: wrap; gap: .8rem 1.2rem; margin-top: 1rem; }
     .keywords span {
       border-left: 3px solid var(--cyan);
       padding: .1em 0 .1em .6em;
@@ -112,7 +129,9 @@
       font-weight: 700;
     }
     .statement {
-      max-width: 13ch;
+      max-width: 17ch;
+      margin-left: auto;
+      margin-right: auto;
       font-size: clamp(45px, 7vw, 112px);
       font-weight: 760;
       line-height: 1.08;
@@ -164,6 +183,7 @@
     <iframe id="player" src="https://www.youtube-nocookie.com/embed/afj9RYxu-po?autoplay=1&mute=1&controls=0&loop=1&playlist=afj9RYxu-po&playsinline=1&rel=0&modestbranding=1&disablekb=1" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="芝浦工業大学デザイン工学部 在学生の様子"></iframe>
   </div>
   <canvas id="simulator" aria-hidden="true"></canvas>
+  <div class="flip-grid" id="flipGrid" aria-hidden="true"></div>
 
   <main aria-live="polite">
     <section class="slide active" data-note="今日は、デザイン工学部が何を学ぶ場所なのかを、5分で紹介します。背景は、実際に学ぶ1年生から4年生の姿です。">
@@ -280,9 +300,11 @@
     }
     addEventListener('resize', resizeSimulator);
     addEventListener('pointermove', e => { pointer.x = e.clientX / simWidth - .5; pointer.y = e.clientY / simHeight - .5; }, { passive: true });
-    resizeSimulator(); requestAnimationFrame(drawFieldSimulator);
+    resizeSimulator();
 
     const slides = [...document.querySelectorAll('.slide')];
+    const flipGrid = document.querySelector('#flipGrid');
+    for (let i = 0; i < 96; i++) { const cell = document.createElement('i'); cell.className = 'flip-cell'; cell.style.setProperty('--delay', `${((i * 17) % 29) * 9}ms`); flipGrid.appendChild(cell); }
     const count = document.querySelector('.count');
     const bar = document.querySelector('.progress i');
     const timer = document.querySelector('.timer');
@@ -298,6 +320,9 @@
       bar.style.width = `${((index + 1) / slides.length) * 100}%`;
       notes.textContent = slides[index].dataset.note || '';
       history.replaceState(null, '', `#${index + 1}`);
+      flipGrid.classList.remove('flipping');
+      void flipGrid.offsetWidth;
+      flipGrid.classList.add('flipping');
     }
     function startTimer() {
       if (startedAt) return;
