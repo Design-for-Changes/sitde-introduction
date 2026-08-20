@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>芝浦工業大学 デザイン工学部｜5分紹介</title>
+  <style>
+    :root {
+      --ink: #f7f7f4;
+      --muted: rgba(247, 247, 244, .72);
+      --cyan: #51d5d2;
+      --pink: #dc7898;
+      --gold: #e5c36e;
+      --shade: rgba(4, 12, 14, .66);
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #071012; }
+    body {
+      color: var(--ink);
+      font-family: "Noto Sans JP", "Yu Gothic", system-ui, sans-serif;
+      letter-spacing: .025em;
+    }
+    .video-shell, .video-shell::after, #player, .fallback {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+    }
+    #player {
+      pointer-events: none;
+      filter: grayscale(1) contrast(1.06) brightness(.62);
+      transform: scale(1.22);
+      border: 0;
+    }
+    .fallback {
+      z-index: -1;
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.05) brightness(.45);
+    }
+    .video-shell::after {
+      content: "";
+      background:
+        linear-gradient(90deg, rgba(3, 11, 13, .90) 0%, rgba(3, 11, 13, .65) 48%, rgba(3, 11, 13, .30) 100%),
+        linear-gradient(0deg, rgba(3, 11, 13, .50), transparent 42%);
+    }
+    main { position: relative; width: 100%; height: 100%; z-index: 2; }
+    .slide {
+      position: absolute; inset: 0;
+      display: grid;
+      align-content: center;
+      padding: clamp(42px, 7vw, 118px);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(18px);
+      transition: opacity .55s ease, transform .55s ease, visibility 0s .55s;
+    }
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+    .kicker {
+      margin: 0 0 1.1rem;
+      color: var(--cyan);
+      font-size: clamp(13px, 1.25vw, 22px);
+      font-weight: 700;
+      letter-spacing: .16em;
+    }
+    h1, h2, p { margin-top: 0; }
+    h1 {
+      max-width: 11ch;
+      margin-bottom: 1.6rem;
+      font-size: clamp(52px, 8.8vw, 142px);
+      font-weight: 760;
+      line-height: .98;
+      letter-spacing: -.05em;
+    }
+    h2 {
+      max-width: 14ch;
+      margin-bottom: 1.7rem;
+      font-size: clamp(42px, 6.3vw, 102px);
+      font-weight: 720;
+      line-height: 1.08;
+      letter-spacing: -.045em;
+    }
+    .lead {
+      max-width: 31em;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 32px);
+      line-height: 1.75;
+      font-weight: 500;
+    }
+    .accent { color: var(--cyan); }
+    .courses {
+      width: min(1050px, 82vw);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(14px, 2.2vw, 38px);
+      margin-top: 1.3rem;
+    }
+    .course { padding-top: 1.15rem; border-top: 3px solid currentColor; }
+    .course:nth-child(1) { color: var(--cyan); }
+    .course:nth-child(2) { color: #8ddfde; }
+    .course:nth-child(3) { color: var(--pink); }
+    .course strong { display: block; font-size: clamp(21px, 2.35vw, 38px); line-height: 1.35; }
+    .course span { display: block; margin-top: .65rem; color: var(--ink); font-size: clamp(14px, 1.35vw, 22px); line-height: 1.6; }
+    .keywords { display: flex; flex-wrap: wrap; gap: .8rem 1.2rem; margin-top: 1rem; }
+    .keywords span {
+      border-left: 3px solid var(--cyan);
+      padding: .1em 0 .1em .6em;
+      font-size: clamp(25px, 3vw, 50px);
+      font-weight: 700;
+    }
+    .statement {
+      max-width: 13ch;
+      font-size: clamp(45px, 7vw, 112px);
+      font-weight: 760;
+      line-height: 1.08;
+      letter-spacing: -.045em;
+    }
+    .statement small {
+      display: block;
+      margin-top: 1.6rem;
+      color: var(--muted);
+      font-size: clamp(17px, 1.8vw, 28px);
+      font-weight: 500;
+      line-height: 1.7;
+      letter-spacing: .02em;
+    }
+    .hud {
+      position: fixed; z-index: 4; left: clamp(24px, 3vw, 52px); right: clamp(24px, 3vw, 52px); bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+      opacity: .72;
+    }
+    .progress { flex: 1; height: 2px; background: rgba(255,255,255,.22); overflow: hidden; }
+    .progress i { display: block; width: 12.5%; height: 100%; background: var(--cyan); transition: width .45s ease; }
+    .count, .timer { min-width: 4.2em; font-size: 12px; letter-spacing: .12em; }
+    .timer { text-align: right; font-variant-numeric: tabular-nums; }
+    .source {
+      position: fixed; z-index: 5; right: 26px; top: 24px;
+      color: rgba(255,255,255,.58); font-size: 11px; text-decoration: none;
+    }
+    .notes {
+      position: fixed; z-index: 8; right: 24px; bottom: 55px;
+      width: min(480px, calc(100vw - 48px));
+      max-height: 42vh; overflow: auto;
+      padding: 18px 20px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(3, 10, 12, .92);
+      box-shadow: 0 14px 50px rgba(0,0,0,.35);
+      color: rgba(255,255,255,.88);
+      font-size: 14px; line-height: 1.8;
+      display: none;
+    }
+    .notes.show { display: block; }
+    @media (max-width: 760px) {
+      .courses { grid-template-columns: 1fr; gap: 15px; width: 100%; }
+      .course { padding-top: .55rem; }
+      .course span { margin-top: .2rem; }
+      #player { transform: scale(1.8); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .slide { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="video-shell" aria-hidden="true">
+    <img class="fallback" src="https://i.ytimg.com/vi/afj9RYxu-po/maxresdefault.jpg" alt="">
+    <iframe id="player" src="https://www.youtube-nocookie.com/embed/afj9RYxu-po?autoplay=1&mute=1&controls=0&loop=1&playlist=afj9RYxu-po&playsinline=1&rel=0&modestbranding=1&disablekb=1" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="芝浦工業大学デザイン工学部 在学生の様子"></iframe>
+  </div>
+
+  <main aria-live="polite">
+    <section class="slide active" data-note="今日は、デザイン工学部が何を学ぶ場所なのかを、5分で紹介します。背景は、実際に学ぶ1年生から4年生の姿です。">
+      <p class="kicker">芝浦工業大学</p>
+      <h1>デザイン工学部</h1>
+      <p class="lead">考える。つくる。人と社会につなげる。</p>
+    </section>
+
+    <section class="slide" data-note="デザイン工学は、工学と芸術の中間というだけではありません。技術を持つ人と、それを使う人のあいだに立ち、よりよい関係をつくる学問です。">
+      <p class="kicker">DESIGN ENGINEERING</p>
+      <h2>技術と人を<br><span class="accent">つなぐ</span>工学</h2>
+      <p class="lead">ものの形だけでなく、体験や仕組み、社会との関係までデザインします。</p>
+    </section>
+
+    <section class="slide" data-note="私たちは、想像して、学び、つくり、確かめることを繰り返します。大切なのは、協創、デジタル技術、そしてデザイン思考です。">
+      <p class="kicker">学びの循環</p>
+      <h2>想像する。<br>学ぶ。<span class="accent">創る。</span></h2>
+      <div class="keywords" aria-label="学びのキーワード">
+        <span>協創</span><span>デジタル技術</span><span>デザイン思考</span>
+      </div>
+    </section>
+
+    <section class="slide" data-note="学びは3つのコースに分かれます。システム、UX、プロダクト。対象は違っても、社会に必要な価値を実現するという目的は共通です。">
+      <p class="kicker">3つのコース</p>
+      <h2>対象が違う。<br>目的は同じ。</h2>
+      <div class="courses">
+        <div class="course"><strong>システムデザイン</strong><span>技術と仕組みで、社会を動かす</span></div>
+        <div class="course"><strong>UXデザイン</strong><span>人の体験と関係を、よりよくする</span></div>
+        <div class="course"><strong>プロダクトデザイン</strong><span>暮らしを支える、ものをつくる</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-note="ここでは、一人で正解を出すことより、違う専門や文化を持つ人と一緒につくることを重視します。学年やコースを越え、企業や地域、海外とも協働します。">
+      <p class="kicker">01 / 協創</p>
+      <div class="statement">ひとりの正解より、<span class="accent">みんなで前へ。</span><small>専門・学年・文化を越えて、異なる視点を組み合わせます。</small></div>
+    </section>
+
+    <section class="slide" data-note="デザインは、頭の中だけでは進みません。まず手を動かし、試し、失敗から学びます。失敗は終わりではなく、次の問いを見つける材料です。">
+      <p class="kicker">02 / とにかくやってみる</p>
+      <div class="statement">失敗から、<br><span class="accent">次の問い</span>をつくる。<small>つくる → 試す → 気づく → つくり直す。</small></div>
+    </section>
+
+    <section class="slide" data-note="授業で考えたことを、現実の社会で確かめます。3年生からは研究室に所属し、地域や企業と関わりながら、実践的な研究に挑みます。">
+      <p class="kicker">03 / 実践に学ぶ</p>
+      <div class="statement">考えただけで、<br><span class="accent">終わらせない。</span><small>企業・地域・海外とともに、アイデアを社会へつなげます。</small></div>
+    </section>
+
+    <section class="slide" data-note="デザイン工学部は、当たり前を疑い、共感を生み出し、未来を形にする場所です。ここで、自分なりの問いを見つけてください。">
+      <p class="kicker">DESIGN THE NEXT</p>
+      <h2>当たり前を疑い、<br><span class="accent">共感を生み出す。</span></h2>
+      <p class="lead">あなたは、どんな未来をつくりますか。</p>
+    </section>
+  </main>
+
+  <a class="source" href="https://www.youtube.com/watch?v=afj9RYxu-po" target="_blank" rel="noopener">映像：芝浦工業大学 - SIT</a>
+  <aside class="notes" id="notes" aria-label="発表者ノート"></aside>
+  <div class="hud" aria-hidden="true">
+    <span class="count">01 / 08</span>
+    <span class="progress"><i></i></span>
+    <span class="timer">00:00</span>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    const count = document.querySelector('.count');
+    const bar = document.querySelector('.progress i');
+    const timer = document.querySelector('.timer');
+    const notes = document.querySelector('#notes');
+    let index = 0;
+    let startedAt = null;
+    let tick = null;
+
+    function render(next) {
+      index = Math.max(0, Math.min(slides.length - 1, next));
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      count.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+      bar.style.width = `${((index + 1) / slides.length) * 100}%`;
+      notes.textContent = slides[index].dataset.note || '';
+      history.replaceState(null, '', `#${index + 1}`);
+    }
+    function startTimer() {
+      if (startedAt) return;
+      startedAt = Date.now();
+      tick = setInterval(() => {
+        const sec = Math.floor((Date.now() - startedAt) / 1000);
+        timer.textContent = `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
+      }, 250);
+    }
+    function move(delta) { startTimer(); render(index + delta); }
+    addEventListener('keydown', (event) => {
+      if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(event.key)) { event.preventDefault(); move(1); }
+      if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) { event.preventDefault(); move(-1); }
+      if (event.key.toLowerCase() === 'n') notes.classList.toggle('show');
+      if (event.key === 'Home') render(0);
+      if (event.key === 'End') render(slides.length - 1);
+    });
+    let touchX = 0;
+    addEventListener('touchstart', e => { touchX = e.changedTouches[0].clientX; }, {passive:true});
+    addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) move(dx < 0 ? 1 : -1);
+    }, {passive:true});
+    addEventListener('click', e => {
+      if (e.target.closest('a, .notes')) return;
+      move(e.clientX < innerWidth * .28 ? -1 : 1);
+    });
+    render(Math.max(0, Math.min(slides.length - 1, Number(location.hash.slice(1) || 1) - 1)));
+  </script>
+</body>
+</html>
