@@ -190,6 +190,7 @@
     .course-axis::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: linear-gradient(90deg, #3F958B, #657CB8 50%, #B56171); transform: translateY(-50%); }
     .course-axis span { position: relative; z-index: 1; padding: .2em .7em; background: rgba(3,11,13,.9); }
     .shared-course-objects, .shared-course-anchor { display: contents; }
+    .shared-course-objects.is-moving .course { opacity: 1; transform: none; transition: none; }
     .course-slide { align-content: start; padding-top: clamp(54px, 8vh, 96px); }
     .course-slide h2 { margin-bottom: clamp(42px, 5vh, 72px); font-size: clamp(48px, 5.2vw, 82px); }
     .course-intro { width: 80vw; margin: 0 auto; color: var(--ink); font-size: clamp(18px, 1.65vw, 29px); font-weight: 650; line-height: 1.55; }
@@ -230,13 +231,6 @@
     .graduate-goal { margin: 0; color: var(--ink); font-size: clamp(25px, 2.2vw, 40px); font-weight: 730; line-height: 1.48; text-align: center; }
     .graduate-goal strong { display: block; margin-top: .35em; color: var(--cyan); font-size: 1em; }
     .graduate-map { display: block; width: min(94vw, 1720px); height: clamp(250px, 34vh, 430px); object-fit: contain; object-position: center top; }
-    ::view-transition-group(course-axis-shared),
-    ::view-transition-group(course-system-shared),
-    ::view-transition-group(course-ux-shared),
-    ::view-transition-group(course-product-shared) {
-      animation-duration: .95s;
-      animation-timing-function: cubic-bezier(.22,.8,.2,1);
-    }
     .keywords { display: flex; justify-content: center; flex-wrap: wrap; gap: .8rem 1.2rem; margin-top: 1rem; }
     .keywords span {
       border-left: 3px solid var(--cyan);
@@ -556,17 +550,28 @@
       const target = Math.max(0, Math.min(slides.length - 1, next));
       const isCourseMove = (index === 5 && target === 6) || (index === 6 && target === 5);
       const activeExists = slides.some(slide => slide.classList.contains('active'));
-      if (!isCourseMove || !activeExists || !document.startViewTransition) {
+      if (!isCourseMove || !activeExists) {
         updateSlide(target);
         return;
       }
-      const names = ['course-axis-shared', 'course-system-shared', 'course-ux-shared', 'course-product-shared'];
       const sharedElements = [sharedCourseObjects.querySelector('.course-axis'), ...sharedCourseObjects.querySelectorAll('.course strong')];
-      sharedElements.forEach((element, i) => { if (element) element.style.viewTransitionName = names[i]; });
-      const transition = document.startViewTransition(() => {
-        updateSlide(target);
+      const before = sharedElements.map(element => element.getBoundingClientRect());
+      sharedCourseObjects.classList.add('is-moving');
+      updateSlide(target);
+      const animations = sharedElements.map((element, i) => {
+        const after = element.getBoundingClientRect();
+        const from = before[i];
+        const scaleX = after.width ? from.width / after.width : 1;
+        const scaleY = after.height ? from.height / after.height : 1;
+        return element.animate([
+          { transform: `translate(${from.left - after.left}px, ${from.top - after.top}px) scale(${scaleX}, ${scaleY})` },
+          { transform: 'translate(0, 0) scale(1, 1)' }
+        ], { duration: 900, easing: 'cubic-bezier(.22,.72,.18,1)', fill: 'both' });
       });
-      transition.finished.finally(() => sharedElements.forEach(element => { if (element) element.style.viewTransitionName = ''; }));
+      Promise.allSettled(animations.map(animation => animation.finished)).finally(() => {
+        animations.forEach(animation => animation.cancel());
+        sharedCourseObjects.classList.remove('is-moving');
+      });
     }
     function startTimer() {
       if (startedAt) return;
