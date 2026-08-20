@@ -133,6 +133,21 @@
     .concept-section .answer-block > .body { padding-top: .2rem; }
     .concept-section .focus-copy { font-size: clamp(20px, 1.45vw, 27px); line-height: 1.6; }
     .concept-section .voice { color: var(--ink); font-weight: 700; }
+    .feature-question { max-width: none; margin-bottom: clamp(38px, 5vh, 72px); font-size: clamp(34px, 3.4vw, 58px); }
+    .feature-compare { position: relative; width: 88vw; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .feature-card { padding: clamp(22px, 2.5vw, 48px) clamp(38px, 4vw, 78px); text-align: left; }
+    .feature-card:first-child { border-right: 2px solid rgba(81,213,210,.82); }
+    .feature-card .field { display: block; color: var(--cyan); font-size: clamp(22px, 1.8vw, 34px); font-weight: 700; letter-spacing: .08em; }
+    .feature-card strong { display: block; margin-top: .25rem; color: var(--ink); font-size: clamp(76px, 8vw, 150px); line-height: .95; letter-spacing: -.06em; }
+    .feature-card p { margin: 1rem 0 0; color: var(--muted); font-size: clamp(24px, 2.1vw, 40px); font-weight: 600; }
+    .feature-card > * { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .slide.active .feature-card > * { opacity: 1; transform: translateY(0); }
+    .slide.active .feature-card:first-child > :nth-child(1) { transition-delay: .55s; }
+    .slide.active .feature-card:first-child > :nth-child(2) { transition-delay: .67s; }
+    .slide.active .feature-card:first-child > :nth-child(3) { transition-delay: .79s; }
+    .slide.active .feature-card:last-child > :nth-child(1) { transition-delay: .73s; }
+    .slide.active .feature-card:last-child > :nth-child(2) { transition-delay: .85s; }
+    .slide.active .feature-card:last-child > :nth-child(3) { transition-delay: .97s; }
     .courses {
       width: min(1050px, 82vw);
       display: grid;
@@ -257,11 +272,20 @@
       </div>
     </section>
 
-    <section class="slide" data-note="私たちは、想像して、学び、つくり、確かめることを繰り返します。大切なのは、協創、デジタル技術、そしてデザイン思考です。">
-      <p class="kicker">学びの循環</p>
-      <h2>想像する。<br>学ぶ。<span class="accent">創る。</span></h2>
-      <div class="keywords" aria-label="学びのキーワード">
-        <span>協創</span><span>デジタル技術</span><span>デザイン思考</span>
+    <section class="slide" data-note="デザイン工学部の特徴は、工学とデザインを組み合わせることです。工学は、どうやって作るかというHow。デザインは、何を作るかというWhatを考えます。">
+      <p class="kicker">DESIGN ENGINEERING</p>
+      <h2 class="feature-question">デザイン工学部の特徴とは？</h2>
+      <div class="feature-compare">
+        <div class="feature-card">
+          <span class="field">工学</span>
+          <strong>How</strong>
+          <p>どうやって作るか？</p>
+        </div>
+        <div class="feature-card">
+          <span class="field">デザイン</span>
+          <strong>What</strong>
+          <p>何を作るか？</p>
+        </div>
       </div>
     </section>
 
