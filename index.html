@@ -188,6 +188,11 @@
     .course-axis { position: relative; width: 88vw; margin-top: clamp(40px, 5vh, 74px); display: flex; justify-content: space-between; color: var(--ink); font-size: clamp(20px, 1.8vw, 32px); font-weight: 700; }
     .course-axis::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: linear-gradient(90deg, #3F958B, #657CB8 50%, #B56171); transform: translateY(-50%); }
     .course-axis span { position: relative; z-index: 1; padding: .2em .7em; background: rgba(3,11,13,.9); }
+    .course-slide h2 { margin-bottom: clamp(26px, 3.5vh, 48px); font-size: clamp(48px, 5.2vw, 82px); }
+    .course-slide .courses { margin-top: 0; }
+    .course-slide .course strong { font-size: clamp(38px, 3.8vw, 68px); }
+    .course-slide .course-axis { margin-top: clamp(16px, 2vh, 28px); font-size: clamp(17px, 1.45vw, 25px); }
+    .course-slide .course-axis span { padding: .15em .55em; }
     .keywords { display: flex; justify-content: center; flex-wrap: wrap; gap: .8rem 1.2rem; margin-top: 1rem; }
     .keywords span {
       border-left: 3px solid var(--cyan);
@@ -330,7 +335,7 @@
       <div class="demand-conclusion">だから、どっちもやる<span>デザイン工学</span>のニーズがある。</div>
     </section>
 
-    <section class="slide" data-note="デザイン工学部には、システムデザイン、UXデザイン、プロダクトデザインの3つのコースがあります。">
+    <section class="slide course-slide" data-note="デザイン工学部には、システムデザイン、UXデザイン、プロダクトデザインの3つのコースがあります。">
       <p class="kicker">3 COURSES</p>
       <h2>3つのコース</h2>
       <div class="courses">
