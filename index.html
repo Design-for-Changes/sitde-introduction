@@ -196,6 +196,33 @@
     .course-slide .course strong { height: clamp(230px, 28vh, 310px); writing-mode: vertical-rl; text-orientation: upright; text-align: start; white-space: nowrap; font-size: clamp(28px, 2.6vw, 46px); line-height: 1; letter-spacing: .08em; }
     .course-slide .course-axis { margin-top: clamp(10px, 1.4vh, 20px); font-size: clamp(17px, 1.45vw, 25px); }
     .course-slide .course-axis span { padding: .15em .55em; transform: translateY(1.25em); }
+    .labs-slide { align-content: start; padding-top: clamp(42px, 5vh, 68px); }
+    .labs-slide .course-axis { margin-top: 0; font-size: clamp(15px, 1.25vw, 22px); }
+    .labs-slide .course-axis span { padding: .12em .5em; transform: translateY(1.2em); }
+    .labs-slide .courses { margin-top: clamp(24px, 2.6vh, 36px); }
+    .labs-slide .course { height: clamp(120px, 14vh, 170px); display: flex; justify-content: center; padding-top: 0; }
+    .labs-slide .course strong { writing-mode: vertical-rl; text-orientation: upright; text-align: start; white-space: nowrap; font-size: clamp(22px, 2vw, 35px); line-height: 1; letter-spacing: .08em; }
+    .lab-lists { width: 88vw; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(22px, 3vw, 52px); margin: clamp(16px, 2vh, 28px) auto 0; text-align: left; }
+    .lab-lists ul { margin: 0; padding: clamp(14px, 1.5vh, 22px) 0 0; border-top: 1px solid currentColor; list-style: none; }
+    .lab-lists li { margin: 0 0 .42em; color: var(--ink); font-size: clamp(13px, 1.12vw, 20px); font-weight: 600; line-height: 1.35; }
+    .lab-lists ul:nth-child(1) { color: #3F958B; }
+    .lab-lists ul:nth-child(2) { color: #657CB8; }
+    .lab-lists ul:nth-child(3) { color: #B56171; }
+    .learning-slide { align-content: center; }
+    .learning-slide h2 { margin-bottom: clamp(52px, 7vh, 96px); font-size: clamp(48px, 5.2vw, 82px); }
+    .learning-features { width: 88vw; display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 auto; border-top: 1px solid rgba(81,213,210,.58); border-bottom: 1px solid rgba(81,213,210,.58); }
+    .learning-feature { min-height: clamp(210px, 28vh, 340px); display: grid; align-content: center; padding: clamp(28px, 3vw, 52px); }
+    .learning-feature + .learning-feature { border-left: 1px solid rgba(81,213,210,.42); }
+    .learning-feature b { display: block; margin-bottom: .8em; color: var(--cyan); font-size: clamp(14px, 1.2vw, 21px); letter-spacing: .14em; }
+    .learning-feature strong { color: var(--ink); font-size: clamp(34px, 3.4vw, 60px); line-height: 1.22; white-space: nowrap; }
+    .summary-slide h2 { margin-bottom: clamp(44px, 5vh, 72px); font-size: clamp(48px, 5.2vw, 82px); }
+    .learning-summary { width: 88vw; margin: 0 auto; display: grid; grid-template-columns: 1.15fr auto 1.5fr auto 1fr; align-items: center; gap: clamp(18px, 2vw, 36px); }
+    .summary-block { display: grid; align-content: center; min-height: clamp(190px, 25vh, 300px); padding: clamp(22px, 2.5vw, 42px); border-top: 1px solid rgba(81,213,210,.58); border-bottom: 1px solid rgba(81,213,210,.58); }
+    .summary-block b { margin-bottom: .8em; color: var(--cyan); font-size: clamp(13px, 1.05vw, 19px); letter-spacing: .14em; }
+    .summary-block strong { color: var(--ink); font-size: clamp(27px, 2.55vw, 45px); line-height: 1.35; }
+    .summary-block.middle strong { font-size: clamp(23px, 2.1vw, 37px); }
+    .summary-block.final { border-color: var(--cyan); }
+    .summary-arrow { color: var(--cyan); font-size: clamp(28px, 3vw, 52px); font-weight: 700; }
     .keywords { display: flex; justify-content: center; flex-wrap: wrap; gap: .8rem 1.2rem; margin-top: 1rem; }
     .keywords span {
       border-left: 3px solid var(--cyan);
@@ -350,14 +377,62 @@
       </div>
     </section>
 
-    <section class="slide" data-note="デザインは、頭の中だけでは進みません。まず手を動かし、試し、失敗から学びます。失敗は終わりではなく、次の問いを見つける材料です。">
-      <p class="kicker">02 / とにかくやってみる</p>
-      <div class="statement">失敗から、<br><span class="accent">次の問い</span>をつくる。<small>つくる → 試す → 気づく → つくり直す。</small></div>
+    <section class="slide labs-slide" data-note="3つのコースには、システム8、UX6、プロダクト5の研究室があります。">
+      <div class="course-axis" aria-label="仕組みから製品への横軸"><span>仕組み</span><span>製品</span></div>
+      <div class="courses">
+        <div class="course"><strong>システム</strong></div>
+        <div class="course"><strong>UX</strong></div>
+        <div class="course"><strong>プロダクト</strong></div>
+      </div>
+      <div class="lab-lists" aria-label="コース別研究室一覧">
+        <ul>
+          <li>コンテクスチュアルデザイン研究室</li>
+          <li>コンピューティングデザイン研究室</li>
+          <li>身体知デザイン研究室</li>
+          <li>ソフトウェアデザイン研究室</li>
+          <li>ヘルスケアデザイン研究室</li>
+          <li>メディア体験デザイン研究室</li>
+          <li>リサイクルデザイン研究室</li>
+          <li>ロボティクスシステムデザイン研究室</li>
+        </ul>
+        <ul>
+          <li>インサイトデザイン研究室</li>
+          <li>感性インタラクションデザイン研究室</li>
+          <li>動態デザイン研究室</li>
+          <li>認知デザイン研究室</li>
+          <li>空間UXデザイン研究室</li>
+          <li>ホリスティックデザイン研究室</li>
+        </ul>
+        <ul>
+          <li>エモーショナルデザイン研究室</li>
+          <li>感性価値デザイン研究室</li>
+          <li>デザインプロセス研究室</li>
+          <li>デライトデザイン研究室</li>
+          <li>プロダクト・エルゴノミクス・デザイン研究室</li>
+        </ul>
+      </div>
     </section>
 
-    <section class="slide" data-note="授業で考えたことを、現実の社会で確かめます。3年生からは研究室に所属し、地域や企業と関わりながら、実践的な研究に挑みます。">
-      <p class="kicker">03 / 実践に学ぶ</p>
-      <div class="statement">考えただけで、<br><span class="accent">終わらせない。</span><small>企業・地域・海外とともに、アイデアを社会へつなげます。</small></div>
+    <section class="slide learning-slide" data-note="デザイン工学部では、デザイン思考、デジタル技術、協創の3つの能力を育成します。">
+      <p class="kicker">LEARNING FEATURES</p>
+      <h2>学びの3つの特徴</h2>
+      <div class="learning-features">
+        <div class="learning-feature"><b>01</b><strong>デザイン思考</strong></div>
+        <div class="learning-feature"><b>02</b><strong>デジタル技術</strong></div>
+        <div class="learning-feature"><b>03</b><strong>協創</strong></div>
+      </div>
+    </section>
+
+    <section class="slide summary-slide" data-note="当たり前を疑い、共感を生み出すことを念頭に、デザイン思考、デジタル技術、協創を通して社会実装を目指します。">
+      <p class="kicker">CURRICULUM</p>
+      <h2>まとめると？</h2>
+      <div class="learning-summary">
+        <div class="summary-block"><b>OUR POLICY</b><strong>当たり前を疑い<br>共感を生み出す</strong></div>
+        <div class="summary-arrow">→</div>
+        <div class="summary-block middle"><b>THOUGHT / MEANS / WAY</b><strong>デザイン思考<br>デジタル技術<br>協創</strong></div>
+        <div class="summary-arrow">→</div>
+        <div class="summary-block final"><b>OBJECTIVE</b><strong>社会実装</strong></div>
+      </div>
     </section>
 
     <section class="slide" data-note="デザイン工学部は、当たり前を疑い、共感を生み出し、未来を形にする場所です。ここで、自分なりの問いを見つけてください。">
